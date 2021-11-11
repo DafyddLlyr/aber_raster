@@ -33,7 +33,6 @@ const map = new Map({
         layer: '50cm_dsm',
         matrixSet: 'GoogleMapsCompatible',
         format: 'image/jpg',
-        crossOrigin: "anonomous",
         projection: projection,
         tileGrid: new WMTSTileGrid({
           origin: getTopLeft(projectionExtent),
