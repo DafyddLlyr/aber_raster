@@ -2,48 +2,34 @@ import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
-import WMTS from 'ol/source/WMTS';
-import WMTSTileGrid from 'ol/tilegrid/WMTS';
-import {get as getProjection} from 'ol/proj';
-import {getTopLeft, getWidth} from 'ol/extent';
+import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
-const projection = getProjection('EPSG:3857');
-const projectionExtent = projection.getExtent();
-const size = getWidth(projectionExtent) / 256;
-const resolutions = new Array(19);
-const matrixIds = new Array(19);
-for (let z = 0; z < 19; ++z) {
-  // generate resolutions and matrixIds arrays for this WMTS
-  resolutions[z] = size / Math.pow(2, z);
-  matrixIds[z] = z;
-}
+const parser = new WMTSCapabilities();
 
-const map = new Map({
-  layers: [
-    new TileLayer({
-      source: new OSM(),
-    }),
-    new TileLayer({
-      opacity: 0.7,
-      source: new WMTS({
-        url: 'http://lle.gov.wales/services/tiles/lidar/wmts',
-        layer: '50cm_dsm',
-        matrixSet: 'GoogleMapsCompatible',
-        format: 'image/jpg',
-        projection: projection,
-        tileGrid: new WMTSTileGrid({
-          origin: getTopLeft(projectionExtent),
-          resolutions: resolutions,
-          matrixIds: matrixIds,
+fetch('https://lle.gov.wales/services/tiles/lidar/wmts')
+  .then(function (response) {
+    return response.text();
+  })
+  .then(function (text) {
+    const result = parser.read(text);
+    const options = optionsFromCapabilities(result, {
+      layer: '50cm_dsm',
+    });
+
+    const map = new Map({
+      layers: [
+        new TileLayer({
+          source: new OSM(),
         }),
-        style: 'default',
-        wrapX: true,
+        new TileLayer({
+          source: new WMTS(options)
+        }),
+      ],
+      target: 'map',
+      view: new View({
+        center: [-455029.629382, 6874593.449912],
+        zoom: 16,
       }),
-    }),
-  ],
-  target: 'map',
-  view: new View({
-    center: [-11158582, 4813697],
-    zoom: 4,
-  }),
-});
+    });
+  });
