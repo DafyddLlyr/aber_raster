@@ -1,18 +1,19 @@
-# OpenLayers + Vite
+# OpenLayers + TypeScript
 
-This example demonstrates how the `ol` package can be used with [Vite](https://vitejs.dev/).
+Basic OpenLayers app build using [create-ol-app](https://github.com/openlayers/create-ol-app). Configured to use TypeScript with [@types/ol](https://www.npmjs.com/package/@types/ol).
 
-To get started, run the following (requires Node 12+):
+To launch the application, simply run - 
 
-    npx create-ol-app my-app --template vite
+```
+npm start
+```
 
-Then change into your new `my-app` directory and start a development server (available at http://localhost:3000):
+To manually generate a build ready for production, run -
 
-    cd my-app
-    npm start
+```
+npm run build
+```
 
-To generate a build ready for production:
+Then deploy the contents of the `dist` directory to your server.
 
-    npm run build
-
-Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+Included is a GitHub actions workflow which will build and deploy the application the `dist` branch of your repository on push/merge to master.
