@@ -1,4 +1,4 @@
-# OpenLayers + TypeScript
+# Aberystwyth DSM
 
 Basic OpenLayers app build using [create-ol-app](https://github.com/openlayers/create-ol-app). Configured to use TypeScript with [@types/ol](https://www.npmjs.com/package/@types/ol).
 
