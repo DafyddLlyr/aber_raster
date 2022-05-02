@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/ol": "^6.5.3",
     "ol": "latest",
-    "typescript": "^4.4.4"
+    "typescript": "^4.6.4"
   },
   "devDependencies": {
     "parcel": "^2.0.0-rc.0"
