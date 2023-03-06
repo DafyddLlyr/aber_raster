@@ -7,7 +7,7 @@
     "build": "parcel build --public-url . index.html"
   },
   "dependencies": {
-    "@types/ol": "^6.5.3",
+    "@types/ol": "^7.0.0",
     "ol": "latest",
     "typescript": "^4.4.4"
   },
